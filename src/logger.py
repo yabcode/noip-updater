@@ -1,6 +1,5 @@
 import logging
 import logging.config
-import datetime
 
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT_SIMPLE = '%(asctime)s %(levelname)-8s %(message)s'
