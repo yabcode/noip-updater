@@ -1,6 +1,11 @@
 {
     "no_ip": {
         "username": "hoge_user",
-        "password": "hoge_pass"
+        "password": "hoge_pass",
+        "authorization": "hoge_auth_key",
+        "hostnames": [
+            "hoge1.ddns.net",
+            "hoge1.ddns.net"
+        ]
     }
 }

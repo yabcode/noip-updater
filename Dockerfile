@@ -6,7 +6,7 @@ RUN apk add --update \
         chromium \
         chromium-chromedriver
 
-RUN pip install selenium
+RUN pip install requests selenium
 
 WORKDIR /app
 COPY ./config.json ./

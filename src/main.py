@@ -19,6 +19,9 @@ def main(config: dict):
     LOG.info('Start main()')
 
     noip = NoIp(config["no_ip"])
+
+    noip.update()
+
     success = noip.login()
     if success:
         noip.confirm()

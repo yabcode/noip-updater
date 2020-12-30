@@ -1,3 +1,5 @@
+import requests
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -12,6 +14,8 @@ class NoIp:
         self.driver = self._connect_driver()
         self.username = config["username"]
         self.password = config["password"]
+        self.auth = config["authorization"]
+        self.hostnames = config["hostnames"]
 
     def __del__(self):
         if self.driver:
@@ -51,6 +55,23 @@ class NoIp:
         except Exception as e:
             LOG.error(f'failed to connect webdriver. {e}')
             return None
+
+    def update(self):
+        LOG.debug('start update()')
+        for hostname in self.hostnames:
+            try:
+                headers = {'Authorization': f'Basic {self.auth}'}
+                param = f'hostname={hostname}'
+                url = f'https://dynupdate.no-ip.com/nic/update?{param}'
+                response = requests.get(url, headers=headers)
+                if response.status_code == requests.codes.ok:
+                    LOG.debug(f'{param} response={response}')
+                else:
+                    LOG.warning(f'{param} response={response}')
+            except Exception as e:
+                LOG.error(f'failed to requests.get(). {e}')
+        LOG.debug('end update()')
+
 
     def login(self) -> bool:
         LOG.debug('start login()')
